@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Pip Calculator - Add or Subtract</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+        }
+        input, select, button {
+            width: 90%;
+            max-width: 400px;
+            margin: 12px 0;
+            padding: 14px;
+            font-size: 22px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        #result input {
+            font-size: 24px;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Universal Pip Calculator</h2>
+    <p>Enter your starting price, number of pips, and choose add or subtract:</p>
+
+    <input id="startPrice" type="number" placeholder="Start Price" step="0.0001" value="169.640"><br>
+    <input id="pips" type="number" placeholder="Pips" value="500"><br>
+    <select id="operation">
+        <option value="subtract">Subtract (e.g., for Shorts)</option>
+        <option value="add">Add (e.g., for Longs)</option>
+    </select><br>
+    <select id="isJPY">
+        <option value="yes">Yes (e.g., USDJPY, GBPJPY)</option>
+        <option value="no">No (e.g., EURUSD, GBPUSD)</option>
+    </select><br>
+    <button onclick="calculate()">Calculate</button>
+
+    <div id="result">
+        <input type="text" id="calculatedPrice" readonly placeholder="Result will appear here">
+    </div>
+
+    <script>
+        function calculate() {
+            var start = parseFloat(document.getElementById('startPrice').value);
+            var pips = parseFloat(document.getElementById('pips').value);
+            var operation = document.getElementById('operation').value;
+            var isJPY = document.getElementById('isJPY').value;
+            var pipValue = (isJPY === "yes") ? 0.01 : 0.0001;
+            var move = pips * pipValue;
+            var result = (operation === "add") ? start + move : start - move;
+            document.getElementById('calculatedPrice').value = result.toFixed(5);
+        }
+    </script>
+</body>
+</html>
